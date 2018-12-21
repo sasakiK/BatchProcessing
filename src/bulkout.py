@@ -3,12 +3,11 @@ import sys
 import pandas as pd
 
 def formatGBtoB(arg):
-    # arg : "1-100GB" character, 1GB = 1073741824 byte
-    # return :
+    # arg : "1GB" - "100GB" character
+    # return : target filesize
     num = int(arg.split("G")[0])
     if arg.find("G")>=1:
-        print(num)
-        return 107374182 * num
+        return 1073741824 * num
     else:
         return "target file size is too small"
 
