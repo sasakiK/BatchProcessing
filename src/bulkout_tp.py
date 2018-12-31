@@ -13,14 +13,15 @@ def formatGBtoB(arg):
 
 if __name__ == '__main__':
 
-    os.chdir("/home/jovyan/BatchProcessing/")
+    os.chdir("/home/sskk/BatchProcessing/")
 
     # load df
     df = pd.read_csv("data/breast-cancer-wisconsin.csv", header=None)
     df.columns = ["ID"] + ["V" + str(n) for n in range(len(df.columns)-1)]
 
     # put sample csv
-    df.to_csv("data/sample.csv")
+    args_filename = sys.argv[2]
+    df.to_csv("data/" + args_filename, index=False)
 
     # get commancline flag
     args = sys.argv[1]
@@ -28,6 +29,6 @@ if __name__ == '__main__':
 
     # bulkout csv
     df_appended = df.append(df).append(df).append(df).append(df)
-    while os.stat("data/sample.csv").st_size<=target_filesize:
-        df_appended.to_csv('data/sample.csv', mode='a', header=False)
+    while os.stat("data/" + args_filename).st_size<=target_filesize:
+        df_appended.to_csv("data/" + args_filename, mode='a', header=False)
     print("process is done ...")
